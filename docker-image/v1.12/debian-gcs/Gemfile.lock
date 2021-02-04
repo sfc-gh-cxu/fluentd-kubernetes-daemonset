@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/sfc-gh-cxu/fluent-plugin-gcs.git
+  revision: 6249e0aa625cd308dbb9fbbe8809354f20312ca8
+  ref: 6249e0aa625cd308dbb9fbbe8809354f20312ca8
+  specs:
+    fluent-plugin-gcs (0.4.1)
+      fluentd (>= 0.14.22, < 2)
+      google-cloud-storage (~> 1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -26,9 +35,6 @@ GEM
       fluentd (>= 0.14.0, < 2)
     fluent-plugin-detect-exceptions (0.0.13)
       fluentd (>= 0.10)
-    fluent-plugin-gcs (0.4.0)
-      fluentd (>= 0.14.22, < 2)
-      google-cloud-storage (~> 1.1)
     fluent-plugin-grok-parser (2.6.2)
       fluentd (>= 0.14.6, < 2)
     fluent-plugin-json-in-json-2 (1.0.2)
@@ -177,7 +183,7 @@ DEPENDENCIES
   ffi
   fluent-plugin-concat (~> 2.4.0)
   fluent-plugin-detect-exceptions (~> 0.0.13)
-  fluent-plugin-gcs (= 0.4.0)
+  fluent-plugin-gcs!
   fluent-plugin-grok-parser (~> 2.6.2)
   fluent-plugin-json-in-json-2 (>= 1.0.2)
   fluent-plugin-kubernetes_metadata_filter (~> 2.6.0)
