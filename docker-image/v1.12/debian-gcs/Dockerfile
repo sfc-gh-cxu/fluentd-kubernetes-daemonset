@@ -13,7 +13,7 @@ ENV GEM_HOME /fluentd/vendor/bundle/ruby/2.6.0
 ENV FLUENTD_DISABLE_BUNDLER_INJECTION 1
 
 COPY Gemfile* /fluentd/
-RUN buildDeps="sudo make gcc g++ libc-dev libffi-dev" \
+RUN buildDeps="sudo make gcc g++ libc-dev libffi-dev vim git" \
   runtimeDeps="" \
       && apt-get update \
      && apt-get upgrade -y \
@@ -22,14 +22,7 @@ RUN buildDeps="sudo make gcc g++ libc-dev libffi-dev" \
      $buildDeps $runtimeDeps net-tools \
     && gem install bundler --version 2.2.6 \
     && bundle config silence_root_warning true \
-    && bundle install --gemfile=/fluentd/Gemfile --path=/fluentd/vendor/bundle \
-    && SUDO_FORCE_REMOVE=yes \
-    apt-get purge -y --auto-remove \
-                  -o APT::AutoRemove::RecommendsImportant=false \
-                  $buildDeps \
- && rm -rf /var/lib/apt/lists/* \
-    && gem sources --clear-all \
-    && rm -rf /tmp/* /var/tmp/* /usr/lib/ruby/gems/*/cache/*.gem
+    && bundle install --gemfile=/fluentd/Gemfile --path=/fluentd/vendor/bundle
 # Copy configuration files
 COPY ./conf/fluent.conf /fluentd/etc/
 COPY ./conf/systemd.conf /fluentd/etc/
@@ -38,6 +31,7 @@ COPY ./conf/prometheus.conf /fluentd/etc/
 RUN touch /fluentd/etc/disable.conf
 
 # Copy plugins
+COPY out_gcs.rb /fluentd/vendor/bundle/ruby/2.6.0/gems/fluent-plugin-gcs-0.4.0/lib/fluent/plugin/out_gcs.rb
 COPY plugins /fluentd/plugins/
 COPY entrypoint.sh /fluentd/entrypoint.sh
 
